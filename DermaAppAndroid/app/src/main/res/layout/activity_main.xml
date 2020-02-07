@@ -11,9 +11,12 @@
         android:id="@+id/buttonGalleryPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="600dp"
+        android:background="@color/colorAccent"
         android:text="Select from gallery"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,18 +24,14 @@
         android:id="@+id/buttonCameraPhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="600dp"
+        android:background="@color/colorAccent"
         android:text="Take a photo"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGalleryPicture" />
+        app:layout_constraintStart_toEndOf="@+id/buttonGalleryPicture"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="29dp"
-        tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>
+
