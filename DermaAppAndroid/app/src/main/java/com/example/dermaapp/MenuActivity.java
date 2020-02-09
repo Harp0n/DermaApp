@@ -18,5 +18,6 @@ public class MenuActivity extends AppCompatActivity {
         RelativeLayout relativeLayout = findViewById(R.id.relativeLayout);
         relativeLayout.setBackgroundColor(Constants.BACKGROUND_COLOR);
 
+        ServerControler serverControler = new ServerControler();
     }
 }
