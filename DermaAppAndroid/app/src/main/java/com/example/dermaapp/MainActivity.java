@@ -136,12 +136,10 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
 
-                //String path = saveImage(photo);
-
                 Converter converter = new Converter(this.getApplicationContext());
 
                 ServerControler serverControler = new ServerControler();
-                serverControler.uploadFoto(getApplicationContext(), new File("/storage/emulated/0/Pictures/test.jpg"));
+                serverControler.uploadFoto(getApplicationContext(), converter.bitToFile(photo));
 
             } catch (Exception e)
             {
