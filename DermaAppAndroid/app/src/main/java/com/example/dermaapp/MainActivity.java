@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -26,7 +27,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.dermaapp.Classes.PathUtil;
+import com.example.dermaapp.Classes.Converter;
 import com.example.dermaapp.Controler.IDjangoApi;
 import com.example.dermaapp.Controler.ServerControler;
 
@@ -36,7 +37,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -45,6 +48,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.File;
+import java.util.Random;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -84,21 +88,6 @@ public class MainActivity extends AppCompatActivity {
         buttonGallery = findViewById(R.id.buttonGalleryPicture);
         buttonPhoto = findViewById(R.id.buttonCameraPhoto);
         imageView = findViewById(R.id.imageView);
-
-        OkHttpClient client = new OkHttpClient();
-        String url = "http://192.168.1.21:8000/analyze/image";
-        Request request = new Request.Builder().url(url).build();
-        client.newCall(request).enqueue(new okhttp3.Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(okhttp3.Call call, okhttp3.Response response) throws IOException {
-
-            }
-        });
 
         this.imageView = (ImageView)this.findViewById(R.id.imageView);
         buttonPhoto.setOnClickListener(new View.OnClickListener()
@@ -146,23 +135,13 @@ public class MainActivity extends AppCompatActivity {
         {
             try {
                 Bitmap photo = (Bitmap) data.getExtras().get("data");
-                //create a file to write bitmap data
-                File f = new File(getApplicationContext().getCacheDir(), "photo");
-                f.createNewFile();
 
-                //Convert bitmap to byte array
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                photo.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-                byte[] bitmapdata = bos.toByteArray();
+                //String path = saveImage(photo);
 
-                //write the bytes in file
-                FileOutputStream fos = new FileOutputStream(f);
-                fos.write(bitmapdata);
-                fos.flush();
-                fos.close();
+                Converter converter = new Converter(this.getApplicationContext());
 
                 ServerControler serverControler = new ServerControler();
-                serverControler.uploadFoto(getApplicationContext(), f);
+                serverControler.uploadFoto(getApplicationContext(), new File("/storage/emulated/0/Pictures/test.jpg"));
 
             } catch (Exception e)
             {
@@ -171,16 +150,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String getPath(Uri uri)
-    {
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
-        if (cursor == null) return null;
-        int column_index =             cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String s=cursor.getString(column_index);
-        cursor.close();
-        return s;
+    public void saveTempBitmap(Bitmap bitmap) {
+        if (isExternalStorageWritable()) {
+            saveImage(bitmap);
+        }else{
+            //prompt the user or do something
+        }
+    }
+
+    private String saveImage(Bitmap finalBitmap) {
+
+        String root = Environment.getExternalStorageDirectory().toString();
+        File myDir = new File(root + "/saved_images");
+        myDir.mkdirs();
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String fname = "Shutta_"+ timeStamp +".jpg";
+
+        File file = new File(myDir, fname);
+        if (file.exists()) file.delete ();
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return myDir + fname;
+    }
+
+    /* Checks if external storage is available for read and write */
+    public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
     }
 }
-
