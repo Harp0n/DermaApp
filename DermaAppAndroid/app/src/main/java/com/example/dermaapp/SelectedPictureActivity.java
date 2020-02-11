@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.dermaapp.Controler.ServerControler;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -32,13 +33,13 @@ public class SelectedPictureActivity extends AppCompatActivity {
 
 
         String filePath = intent.getStringExtra("PhotoPath");
-        File file = new File(filePath);
+        final File file = new File(filePath);
         Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
         Picasso.get().load(file).into(imageView);
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO send photo in bitmap to server
+                ServerControler.getInstance().uploadFoto(getApplicationContext(), file);
                 finish();
             }
         });
