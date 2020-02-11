@@ -3,8 +3,15 @@ package com.example.dermaapp.Controler;
 import android.content.Context;
 import android.util.Log;
 
-import java.io.File;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Observer;
+
+import ObserverPattern.IObservable;
+import ObserverPattern.IObserver;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -16,7 +23,22 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ServerControler {
+public class ServerControler implements IObservable {
+
+    private ArrayList<IObserver> observers = new ArrayList<>();
+
+    private static ServerControler serverControler = null;
+
+    private ServerControler()
+    { }
+
+    public static ServerControler getInstance()
+    {
+        if (serverControler == null)
+            serverControler = new ServerControler();
+
+        return serverControler;
+    }
 
     private Retrofit createInstanceRetrofit()
     {
@@ -43,13 +65,41 @@ public class ServerControler {
             @Override
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
-                Log.v("Upload", "success" + response.message()  );
+                Log.v("Upload", "Succes" + response.message()  );
+                notifyObservers(response.message());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
+                    notifyObservers(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public boolean addObserver(IObserver observer) {
+        if(observers.add(observer))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeObserver(IObserver observer) {
+        if(observers.remove(observer))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void notifyObservers(String response) {
+        for(IObserver observer: observers)
+        {
+            observer.update(response);
+        }
     }
 }

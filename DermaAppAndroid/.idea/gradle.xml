@@ -8,7 +8,6 @@
           <compositeBuild compositeDefinitionSource="SCRIPT" />
         </compositeConfiguration>
         <option name="delegatedBuild" value="true" />
-        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
