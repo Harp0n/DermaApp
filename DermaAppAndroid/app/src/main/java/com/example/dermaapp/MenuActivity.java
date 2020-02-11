@@ -19,7 +19,5 @@ public class MenuActivity extends AppCompatActivity {
         relativeLayout.setBackgroundColor(Constants.BACKGROUND_COLOR);
 
         ServerControler serverControler = new ServerControler();
-
-        serverControler.uploadFoto(this.getBaseContext());
     }
 }
