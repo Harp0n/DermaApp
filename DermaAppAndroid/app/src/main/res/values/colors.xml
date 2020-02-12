@@ -4,4 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="cameraRed">#FF0000</color>
+    <color name="cameraYellow">#FFFF00</color>
+    <color name="transparent">#1A000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGreen">#00FF00</color>
+    <color name="colorBlue">#0000FF</color>
 </resources>
