@@ -4,7 +4,7 @@ _Author: Michał Janik_
 
 Model build with Tensorflow and Keras classifying types of skin lesions.
 Images are passed through [MobileNetV2][mobilenetv2] to obtain good feature representation. Features are then globally pooled and passed to a fully connected layer.
-Output of the network is one sigmoid unit, which outputs whether givenlesion is a benign nevus(0) or any other type(1).
+The output of the network is one sigmoid unit, which outputs whether the given lesion is a benign nevus(**0**) or any other type(**1**).
 Model is trained on the HAM10000 dataset containing 10015 dermatoscopic images of skin lesions.
 
 
