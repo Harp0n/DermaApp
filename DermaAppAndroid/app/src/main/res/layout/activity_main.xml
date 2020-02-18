@@ -6,30 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
+
+
+    <ImageButton
         android:id="@+id/buttonGalleryPicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="@string/select_gallery"
+        android:layout_width="108dp"
+        android:layout_height="99dp"
         android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
         android:layout_marginTop="400dp"
-        android:background="@color/colorAccent"
-        android:text="@string/select_gallery"
-        android:textColor="@color/colorWhite"
+        android:background="@drawable/blue_border"
+        android:padding="10dp"
+        android:src="@drawable/gallery"
+        android:tint="@color/colorBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/buttonCameraPhoto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:contentDescription="@string/take_a_photo"
+        android:layout_width="108dp"
+        android:layout_height="99dp"
         android:layout_marginTop="400dp"
-        android:background="@color/colorAccent"
-        android:text="@string/take_a_photo"
-        android:textColor="@color/colorWhite"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/red_border"
+        android:padding="10dp"
+        android:tint="@color/cameraRed"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonGalleryPicture"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/camera"
+        tools:ignore="VectorDrawableCompat" />
+
+
+    <ImageButton
+        android:id="@+id/buttonHistory"
+        android:contentDescription="@string/check_ups"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/green_border"
+        android:padding="10dp"
+        android:tint="@color/colorGreen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/history"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/textViewCheckSkin"
+        android:layout_width="299dp"
+        android:layout_height="282dp"
+        android:gravity="center"
+        android:lineSpacingExtra="0dp"
+        android:shadowColor="#000000"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="10"
+        android:text="@string/check_skin"
+        android:textAllCaps="true"
+        android:textColor="@color/cameraYellow"
+        android:textSize="80sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.431"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonHistory" />
+
 
 </android.support.constraint.ConstraintLayout>
 
