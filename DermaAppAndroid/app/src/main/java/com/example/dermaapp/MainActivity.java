@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -19,11 +20,17 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dermaapp.Constants.Constants;
 import com.example.dermaapp.Controler.ServerControler;
@@ -36,6 +43,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,9 +61,33 @@ public class MainActivity extends AppCompatActivity {
 
         ServerControler.getInstance().addObserver(serverResponse);
 
+        final Animation shake = AnimationUtils.loadAnimation(this,R.anim.shake);
+
         thisActivity = MainActivity.this;
-        Button buttonGallery = findViewById(R.id.buttonGalleryPicture);
-        Button buttonPhoto = findViewById(R.id.buttonCameraPhoto);
+        final ImageButton buttonGallery = findViewById(R.id.buttonGalleryPicture);
+        final ImageButton buttonPhoto = findViewById(R.id.buttonCameraPhoto);
+        TextView tx = findViewById(R.id.textViewCheckSkin);
+
+        Typeface lemonJellyFont = ResourcesCompat.getFont(thisActivity, R.font.lemon_jelly);
+
+        tx.setTypeface(lemonJellyFont);
+
+        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+
+        // Scheduled runnable tasks to shake buttons
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                buttonGallery.startAnimation(shake);
+            }
+        }, 0, 4, TimeUnit.SECONDS);
+
+        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+            public void run() {
+                buttonPhoto.startAnimation(shake);
+            }
+        }, 2, 4, TimeUnit.SECONDS);
+
+
 
         buttonGallery.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -78,20 +112,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // checking for CAMERA and WRITE_EXTERNAL permissions
-                if (ContextCompat.checkSelfPermission(thisActivity,
-                        Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(thisActivity,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED) {
+                if (!hasPermissions(thisActivity, Constants.cameraPermissions)) {
 
                     ActivityCompat.requestPermissions(thisActivity,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            Constants.cameraPermissions,
                             Constants.PHOTO_REQUEST_CODE);
 
-                    ActivityCompat.requestPermissions(thisActivity,
-                            new String[]{Manifest.permission.CAMERA},
-                            Constants.PHOTO_REQUEST_CODE);
+//                    ActivityCompat.requestPermissions(thisActivity,
+//                            new String[]{Manifest.permission.CAMERA},
+//                            Constants.PHOTO_REQUEST_CODE);
 
                 }
                 else
@@ -130,20 +159,21 @@ public class MainActivity extends AppCompatActivity {
                     // If request is cancelled, the result arrays are empty.
                     if (grantResults.length > 0
                             && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                        System.out.println("permission granted @@!!!!!!!!!!!!!!!!!!!!!!!!!");
+                        System.out.println("permission granted");
                         pickPhoto();
                     } else {
-                        System.out.println("permission denied@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
-                    }
+                        System.out.println("permission denied");
+                        Toast.makeText(this, "You must accept all permissions!", Toast.LENGTH_LONG).show();                    }
                     break;
 
                 }
                 case Constants.PHOTO_REQUEST_CODE:{
-                    if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                        System.out.println("permission granted @@!!!!!!!!!!!!!!!!!!!!!!!!!");
+                    if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && hasPermissions(thisActivity, Constants.cameraPermissions)){
+                        System.out.println("permission granted");
                         takeAPhoto();
                     } else {
-                        System.out.println("permission denied@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2");
+                        System.out.println("permission denied");
+                        Toast.makeText(this, "You must accept all permissions!", Toast.LENGTH_LONG).show();
                     }
                     break;
 
@@ -219,5 +249,19 @@ public class MainActivity extends AppCompatActivity {
     {
         Log.d("Observer", "WORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRKSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
     }
+
+    // check whether all permissions has been granted by user
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
+
+
 
