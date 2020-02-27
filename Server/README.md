@@ -16,7 +16,7 @@ image = open(img_path, "rb").read()
 
 payload = {"picture": image}
 # submit the request
-r = requests.post(KERAS_REST_API_URL, files=payload).json() 
+r = requests.post(url, files=payload).json() 
 
 # ensure the request was successful
 if r["success"]:
