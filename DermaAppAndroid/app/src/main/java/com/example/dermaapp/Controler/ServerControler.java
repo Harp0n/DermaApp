@@ -79,15 +79,11 @@ public class ServerControler implements IObservable {
                 {
                     e.printStackTrace();
                 }
-                finally {
-                    notifyObservers("Error");
-                }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
-                notifyObservers("Server Failure");
             }
         });
     }

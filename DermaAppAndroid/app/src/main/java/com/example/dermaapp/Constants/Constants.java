@@ -11,5 +11,7 @@ public class Constants {
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-    public static final String DJANGO_SITE_BASIC_URL = "https://skin-changes.herokuapp.com/analyze/";
+    public static final String DJANGO_SITE_BASIC_URL = "http://192.168.1.21:5000/analyze/";
+    public static final String DJANGO_SITE_BASIC_SITE_URL = "https://skin-changes.herokuapp.com/analyze/";
+
 }

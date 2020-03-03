@@ -35,6 +35,7 @@ public class SelectedPictureActivity extends AppCompatActivity {
                 resultIntent.putExtra("File", fileToSend);
 
                 startActivity(resultIntent);
+                finish();
             }
         });
 

@@ -4,4 +4,5 @@
     <string name="take_a_photo">Take a photo</string>
     <string name="check_ups">Check-ups history</string>
     <string name="check_skin">Check\nyour\nskin</string>
+    <string name="back_to_menu">Back to menu</string>
 </resources>
