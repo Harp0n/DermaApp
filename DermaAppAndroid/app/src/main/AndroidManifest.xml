@@ -38,6 +38,10 @@
             android:parentActivityName=".MainActivity"
             tools:targetApi="jelly_bean" />
 
+        <activity
+            android:name=".ResultActivity"
+            tools:targetApi="jelly_bean" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.dermaapp.provider"

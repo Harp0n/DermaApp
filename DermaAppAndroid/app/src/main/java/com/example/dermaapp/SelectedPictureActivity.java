@@ -19,15 +19,12 @@ import java.io.File;
 
 public class SelectedPictureActivity extends AppCompatActivity {
 
-    private ImageView imageView;
-    private FloatingActionButton buttonSend;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selected_picture);
 
-        imageView = findViewById(R.id.imageView2);
-        buttonSend = findViewById(R.id.floatingActionButtonSend);
+        ImageView imageView = findViewById(R.id.imageView2);
+        FloatingActionButton buttonSend = findViewById(R.id.floatingActionButtonSend);
 
         Intent intent = getIntent();
 
@@ -40,7 +37,7 @@ public class SelectedPictureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ServerControler.getInstance().uploadFoto(getApplicationContext(), file);
-                finish();
+                startActivity(new Intent(getApplicationContext(), ResultActivity.class));
             }
         });
 
