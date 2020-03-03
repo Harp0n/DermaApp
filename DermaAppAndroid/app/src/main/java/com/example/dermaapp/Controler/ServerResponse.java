@@ -13,6 +13,14 @@ public class ServerResponse implements IObserver {
 
     public ServerResponse() { }
 
+    public ArrayList<TextView> getTextViewsToUpdate() {
+        return textViewsToUpdate;
+    }
+
+    public void setTextViewsToUpdate(ArrayList<TextView> textViewsToUpdate) {
+        this.textViewsToUpdate = textViewsToUpdate;
+    }
+
     private void updateTextViews() {
         for(TextView textView: textViewsToUpdate)
         {

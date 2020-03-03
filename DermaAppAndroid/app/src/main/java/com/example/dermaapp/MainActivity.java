@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String currentPhotoTakenPath;
     private Activity thisActivity;
+
     private ServerResponse serverResponse;
 
     @Override
@@ -58,16 +59,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         serverResponse = new ServerResponse();
+        thisActivity = MainActivity.this;
 
         ServerControler.getInstance().addObserver(serverResponse);
 
         final Animation shake = AnimationUtils.loadAnimation(this,R.anim.shake);
-
-        thisActivity = MainActivity.this;
         final ImageButton buttonGallery = findViewById(R.id.buttonGalleryPicture);
         final ImageButton buttonPhoto = findViewById(R.id.buttonCameraPhoto);
-        TextView tx = findViewById(R.id.textViewCheckSkin);
 
+        TextView tx = findViewById(R.id.textViewCheckSkin);
         Typeface lemonJellyFont = ResourcesCompat.getFont(thisActivity, R.font.lemon_jelly);
 
         tx.setTypeface(lemonJellyFont);
@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 buttonPhoto.startAnimation(shake);
             }
         }, 2, 4, TimeUnit.SECONDS);
-
 
 
         buttonGallery.setOnClickListener(new View.OnClickListener() {
@@ -247,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static void changeTextViews(String response)
     {
-        Log.d("Observer", "WORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRKSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+        Log.d("Observer", "Works");
     }
 
     // check whether all permissions has been granted by user
