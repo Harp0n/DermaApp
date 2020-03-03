@@ -11,9 +11,9 @@ import retrofit2.http.Part;
 
 public interface IDjangoApi {
 
-    String DJANGO_SITE = "https://skin-changes.herokuapp.com/";
+    String DJANGO_SITE = "https://skin-changes.herokuapp.com/analyze/";
 
     @Multipart
-    @POST("analyze/upload")
+    @POST("upload/")
         Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);
 }

@@ -13,6 +13,7 @@ public class Converter {
     public Converter(Context context) {
         this.context = context;
     }
+
     public File bitToFile(Bitmap photo)
     {
         File f = null;
