@@ -1,6 +1,4 @@
-package ObserverPattern;
-
-import org.json.JSONObject;
+package com.example.dermaapp.ObserverPattern;
 
 public interface IObservable {
     boolean addObserver(IObserver observer);

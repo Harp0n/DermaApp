@@ -20,6 +20,7 @@ public class Converter {
         try {
             f = new File(context.getCacheDir(), "photo.jpg");
             f.createNewFile();
+
             //Convert bitmap to byte array
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             photo.compress(Bitmap.CompressFormat.JPEG, 0 /*ignored for PNG*/, bos);
@@ -36,13 +37,5 @@ public class Converter {
         }
         return f;
     }
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
 
 }

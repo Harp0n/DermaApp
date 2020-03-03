@@ -3,15 +3,11 @@ package com.example.dermaapp.Controler;
 import android.content.Context;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Observer;
 
-import ObserverPattern.IObservable;
-import ObserverPattern.IObserver;
+import com.example.dermaapp.ObserverPattern.IObservable;
+import com.example.dermaapp.ObserverPattern.IObserver;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -25,9 +21,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServerControler implements IObservable {
 
-    private ArrayList<IObserver> observers = new ArrayList<>();
-
     private static ServerControler serverControler = null;
+
+    private ArrayList<IObserver> observers = new ArrayList<>();
 
     private ServerControler()
     { }
@@ -65,14 +61,14 @@ public class ServerControler implements IObservable {
             @Override
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
-                Log.v("Upload", "Succes" + response.message()  );
+                Log.v("Upload", "Success" + response.message()  );
                 notifyObservers(response.message());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
-                    notifyObservers(t.getMessage());
+                notifyObservers(t.getMessage());
             }
         });
     }
