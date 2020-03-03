@@ -10,14 +10,16 @@
         android:id="@+id/progressBarResult"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:rotation="-90"
+        style="?android:progressBarStyleHorizontal"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-112dp" />
+        tools:layout_editor_absoluteY="-112dp"
+        android:progressDrawable="@drawable/progress_bar"/>
 
     <TextView
         android:id="@+id/textViewResult"
         android:layout_width="99dp"
         android:layout_height="40dp"
-        android:text="@string/check_skin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
