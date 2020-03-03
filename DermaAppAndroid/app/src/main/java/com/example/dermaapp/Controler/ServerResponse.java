@@ -1,36 +1,30 @@
 package com.example.dermaapp.Controler;
 
+import android.nfc.Tag;
+import android.util.Log;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.example.dermaapp.ObserverPattern.IObserver;
+import com.example.dermaapp.ResultActivity;
 
-public class ServerResponse implements IObserver {
+import org.w3c.dom.Text;
+
+public class ServerResponse implements IObserver, Serializable {
 
     private String response;
-    private ArrayList<TextView> textViewsToUpdate = new ArrayList<>();
 
     public ServerResponse() { }
-
-    public ArrayList<TextView> getTextViewsToUpdate() {
-        return textViewsToUpdate;
-    }
-
-    public void setTextViewsToUpdate(ArrayList<TextView> textViewsToUpdate) {
-        this.textViewsToUpdate = textViewsToUpdate;
-    }
-
-    private void updateTextViews() {
-        for(TextView textView: textViewsToUpdate)
-        {
-            textView.setText(response);
-        }
-    }
 
     @Override
     public void update(String response) {
         this.response = response;
-        updateTextViews();
+        ResultActivity.receiveResponse(this.response);
+    }
+
+    public String getResponse() {
+        return response;
     }
 }

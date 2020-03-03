@@ -52,16 +52,12 @@ public class MainActivity extends AppCompatActivity {
     private String currentPhotoTakenPath;
     private Activity thisActivity;
 
-    private ServerResponse serverResponse;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        serverResponse = new ServerResponse();
-        thisActivity = MainActivity.this;
 
-        ServerControler.getInstance().addObserver(serverResponse);
+        thisActivity = MainActivity.this;
 
         final Animation shake = AnimationUtils.loadAnimation(this,R.anim.shake);
         final ImageButton buttonGallery = findViewById(R.id.buttonGalleryPicture);

@@ -1,8 +1,6 @@
 package com.example.dermaapp;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.dermaapp.Controler.ServerControler;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -23,21 +20,21 @@ public class SelectedPictureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selected_picture);
 
-        ImageView imageView = findViewById(R.id.imageView2);
+        ImageView imageView = findViewById(R.id.imageViewChecked);
         FloatingActionButton buttonSend = findViewById(R.id.floatingActionButtonSend);
 
-        Intent intent = getIntent();
+        Intent currentIntent = getIntent();
 
-
-        String filePath = intent.getStringExtra("PhotoPath");
-        final File file = new File(filePath);
-        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-        Picasso.get().load(file).into(imageView);
+        String filePath = currentIntent.getStringExtra("PhotoPath");
+        final File fileToSend = new File(filePath);
+        Picasso.get().load(fileToSend).into(imageView);
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServerControler.getInstance().uploadFoto(getApplicationContext(), file);
-                startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+                Intent resultIntent = new Intent(getApplicationContext(), ResultActivity.class);
+                resultIntent.putExtra("File", fileToSend);
+
+                startActivity(resultIntent);
             }
         });
 

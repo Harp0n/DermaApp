@@ -4,10 +4,18 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.example.dermaapp.ObserverPattern.IObservable;
 import com.example.dermaapp.ObserverPattern.IObserver;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -61,16 +69,35 @@ public class ServerControler implements IObservable {
             @Override
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
-                Log.v("Upload", "Success" + response.message()  );
-                notifyObservers(response.message());
+                Log.v("Upload", "Success" + response.body().toString());
+
+                try {
+                    String responseString = scoreValueFromJson(response.body().string());
+                    notifyObservers(responseString);
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                finally {
+                    notifyObservers("Error");
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
-                notifyObservers(t.getMessage());
+                notifyObservers("Server Failure");
             }
         });
+    }
+
+    private String scoreValueFromJson(String responseBodyString)
+    {
+        JsonParser jsonParser = new JsonParser();
+        JsonElement jsonElement = jsonParser.parse(responseBodyString);
+        JsonObject rootObject = jsonElement.getAsJsonObject();
+        return rootObject.get("score").getAsString();
     }
 
     @Override
@@ -98,4 +125,5 @@ public class ServerControler implements IObservable {
             observer.update(response);
         }
     }
+
 }

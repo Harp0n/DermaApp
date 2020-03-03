@@ -1,6 +1,8 @@
 package com.example.dermaapp.Controler;
 
 
+import com.example.dermaapp.Constants.Constants;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -11,7 +13,7 @@ import retrofit2.http.Part;
 
 public interface IDjangoApi {
 
-    String DJANGO_SITE = "http://192.168.1.21:5000/analyze/";
+    String DJANGO_SITE = Constants.DJANGO_SITE_BASIC_URL;
 
     @Multipart
     @POST("upload/")
