@@ -9,7 +9,14 @@ then you receive a response. Score from 0 to 99, if it's more then 90% you shoul
 
 ## How does it look like 
 
-It's just a prototype for now.
+It's just a prototype for now. So don't care about front-end too much.
+
+
+![Menu](https://github.com/Harp0n/DermaApp/tree/master/Readme%20Images/menuSkinChanges.png)
+
+![Choice](https://github.com/Harp0n/DermaApp/tree/master/Readme%20Images/choice.png)
+
+//![Score]
 
 ## How effective is it?
 
@@ -28,7 +35,7 @@ Currently with good quality photo ideal for our model, the success rate of detec
 * **Piotr Szymański** - *Android/Java programmer*
 * **RadosławKarbowia** - *Android/Java programmer*
 
-* *Eliza Gawron* - We are very thankful for the idea.
+* **Eliza Gawron** - We are very thankful for the idea.
 
 See also the list of [contributors](https://github.com/Harp0n/DermaApp/contributors) who participated in this project.
 
