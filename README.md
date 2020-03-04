@@ -35,6 +35,7 @@ Currently with good quality photo ideal for our model, the success rate of detec
 * **Piotr Szymański** - *Android/Java programmer*
 * **RadosławKarbowia** - *Android/Java programmer*
 
+## Originator 
 * **Eliza Gawron** - We are very thankful for the idea.
 
 See also the list of [contributors](https://github.com/Harp0n/DermaApp/contributors) who participated in this project.
