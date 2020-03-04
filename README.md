@@ -16,7 +16,7 @@ It's just a prototype for now. So don't care about front-end too much.
 
 ![Choice](https://github.com/Harp0n/DermaApp/tree/master/Readme%20Images/choice.png)
 
-//![Score]
+![Score] Next commit
 
 ## How effective is it?
 
