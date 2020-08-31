@@ -2,11 +2,18 @@
 
 _Author: Michał Janik_
 
-Model built with Tensorflow and Keras classifying types of skin lesions.
+A deep model built with Tensorflow and Keras classifying types of skin lesions.
 Images are passed through [MobileNetV2][mobilenetv2] to obtain good feature representation. Features are then globally pooled and passed to a fully connected layer.
-The output of the network is one sigmoid unit, which outputs whether the given lesion is a benign nevus(**0**) or any other type(**1**).
+The model outputs a single label that predicts whether a given lesion is a benign nevus(**0**) or any other type(**1**).
 Model is trained on the HAM10000 dataset containing 10015 dermatoscopic images of skin lesions.
 
+### Results
+On unseen data the model achieves:
+| Metric | Value |
+| --- | --- |
+| Accuracy: | *0.877* |
+| ROC AUC score: |  *0.949* |
+| Specifity at 89% sensitivity: | *0.857* |
 
 ## HAM10000 download
 
