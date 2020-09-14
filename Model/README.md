@@ -15,7 +15,13 @@ On unseen data the model achieves:
 | ROC AUC score: |  *0.949* |
 | Specifity at 89% sensitivity: | *0.857* |
 
-## HAM10000 download
+## Install requirements
+
+```bash
+pip install -r requirements.txt
+```
+
+## Download dataset(HAM10000)
 
 The dataset may be downloaded from [here][ham].
 
@@ -30,6 +36,8 @@ data/
       ISIC_0024307.jpg
       ...
 ```
+
+## Build dataset
 
 Run the script `build_dataset.py` which will resize the images to size `(224, 224)` and split them to training/validation/test directories. The new resized dataset will be located by default in `data/Splitted`:
 
